@@ -10,7 +10,12 @@
   "plugins": [
     {
       "name": "fullstack-dev-skills",
-      "source": "./",
+      "source": {
+        "source": "git-subdir",
+        "url": "mindsandco/tools.asset.insights.portal.skills",
+        "path": ".",
+        "ref": "main"
+      },
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
       "version": "0.4.15",
       "author": {
@@ -49,8 +54,7 @@
         "frameworks",
         "security",
         "testing"
-      ],
-      "skills": "./skills/"
+      ]
     }
   ]
 }
