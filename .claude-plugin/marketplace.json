@@ -12,7 +12,7 @@
       "name": "fullstack-dev-skills",
       "source": "./",
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
-      "version": "0.0.5",
+      "version": "0.4.15",
       "author": {
         "name": "antire",
         "email": "github@mindsandco"
@@ -50,8 +50,7 @@
         "security",
         "testing"
       ],
-      "skills": "./skills/",
-      "commands": "./commands/"
+      "skills": "./skills/"
     }
   ]
 }

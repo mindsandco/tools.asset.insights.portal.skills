@@ -29,6 +29,5 @@
         "devops",
         "project-management"
     ],
-  "skills": "./skills/",
-  "commands": "./commands/"
+  "skills": "./skills/"
 }
