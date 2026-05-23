@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
-    "version": "0.10.1"
+    "version": "0.10.2"
   },
   "plugins": [
     {
       "name": "fullstack-dev-skills",
       "source": "./",
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
-      "version": "0.10.1",
+      "version": "0.10.2",
       "author": {
         "name": "antire",
         "email": "github@mindsandco"
@@ -61,7 +61,8 @@
         "./skills/planning-and-task-breakdown",
         "./skills/spec-driven-development",
         "./skills/test-driven-development",
-        "./skills/git-workflow-and-versioning"
+        "./skills/git-workflow-and-versioning",
+        "./skills/shipping-and-launch"
       ],
       "commands": [
         "./commands/build.md",
