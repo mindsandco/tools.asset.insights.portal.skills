@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: dotnet-core-expert, test-master
+  related-skills: dotnet-core-expert
 ---
 
 # .NET Testcontainers + xUnit v3 Testing
