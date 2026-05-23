@@ -8,6 +8,15 @@ description:
   UI patterns. Triggers on React component work, performance issues, code review,
   or new feature development.
 license: MIT
+metadata:
+  author: https://github.com/mindsandco
+  version: "1.0.0"
+  domain: frontend
+  triggers: React, React 19, Vite, SPA, components, hooks, performance, re-render, compound components, bundle optimization, accessibility
+  role: specialist
+  scope: implementation
+  output-format: code
+  related-skills: antd
 ---
 
 # React 19 + Vite Guide

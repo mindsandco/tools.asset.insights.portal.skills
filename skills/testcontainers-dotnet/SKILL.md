@@ -3,14 +3,14 @@ name: testcontainers-dotnet
 description: Use when writing .NET integration tests that need real backing services (PostgreSQL, RabbitMQ, Elasticsearch, MinIO, …) via Testcontainers, with xUnit v3 + Microsoft Testing Platform. Covers container fixture patterns (IAsyncLifetime, IClassFixture, AssemblyFixture), sealed-client wrapper pattern, BackgroundService handler extraction, NSubstitute mocking, and coverlet code coverage.
 license: MIT
 metadata:
-  author: https://github.com/mindandso
+  author: https://github.com/mindsandco
   version: "1.0.0"
   domain: testing
   triggers: Testcontainers, integration tests, xUnit v3, Microsoft Testing Platform, MTP, PostgreSQL container, RabbitMQ container, Elasticsearch container, MinIO container, Docker tests, NSubstitute
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: dotnet-core-expert
+  related-skills: dotnet-core-expert, dotnet-code-analyzer
 ---
 
 # .NET Testcontainers + xUnit v3 Testing

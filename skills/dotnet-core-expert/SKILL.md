@@ -3,14 +3,14 @@ name: dotnet-core-expert
 description: Use when building modern .NET 10 services with HotChocolate GraphQL, versioned REST controllers, EF Core + PostgreSQL (Npgsql), NodaTime, Dapr sidecar (pub/sub, state, secrets, jobs), DbUp SQL migrations, FusionCache, and BackgroundService workers. Tests with xUnit + NSubstitute + AutoFixture.
 license: MIT
 metadata:
-  author: https://github.com/mindandso
+  author: https://github.com/mindsandco
   version: "2.1.0"
   domain: backend
   triggers: .NET 10, ASP.NET Core, C# 14, HotChocolate, GraphQL, Dapr, EF Core, Npgsql, PostgreSQL, NodaTime, DbUp, FusionCache, Asp.Versioning, BackgroundService
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: fullstack-guardian, microservices-architect, test-master
+  related-skills: testcontainers-dotnet, dotnet-code-analyzer
 ---
 
 # .NET Core Expert

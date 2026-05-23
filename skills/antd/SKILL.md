@@ -11,6 +11,16 @@ allowed-tools:
   - Bash(antd bug-cli*)
   - Bash(npm install -g @ant-design/cli*)
   - Bash(which antd)
+license: MIT
+metadata:
+  author: https://github.com/mindsandco
+  version: "1.0.0"
+  domain: frontend
+  triggers: antd, Ant Design, antd component, antd theme, antd tokens, antd migration, antd v4 to v5, ant-design
+  role: specialist
+  scope: implementation
+  output-format: code
+  related-skills: react-vite-guide
 ---
 
 # Ant Design CLI

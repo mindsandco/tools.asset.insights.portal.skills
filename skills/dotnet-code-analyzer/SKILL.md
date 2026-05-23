@@ -1,6 +1,16 @@
 ---
 name: dotnet-code-analyzer
 description: Use when the user asks to analyze a .NET codebase — detecting unused NuGet packages, code-quality warnings (Roslyn analyzers), or known security vulnerabilities. Triggers on /analyze and on phrases like "analyze packages", "check code quality", "scan for CVEs", or "audit dependencies".
+license: MIT
+metadata:
+  author: https://github.com/mindsandco
+  version: "1.0.0"
+  domain: tooling
+  triggers: dotnet analyze, code analysis, unused NuGet packages, Roslyn warnings, CVE scan, dependency audit, dotnet-unused, security vulnerabilities
+  role: specialist
+  scope: analysis
+  output-format: report
+  related-skills: dotnet-core-expert, testcontainers-dotnet
 ---
 
 # Code Analyzer
