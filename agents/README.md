@@ -4,7 +4,12 @@ Specialist personas that play a single role with a single perspective. Each pers
 
 | Persona | Role | Best for |
 |---------|------|----------|
+| [api-designer](api-designer.md) | Senior API Designer | New REST / GraphQL surfaces, OpenAPI specs, versioning |
+| [backend-developer](backend-developer.md) | Senior Backend Developer | Implementing .NET 10 services (HotChocolate, EF Core, Dapr, DbUp) |
 | [code-reviewer](code-reviewer.md) | Senior Staff Engineer | Five-axis review before merge |
+| [database-optimizer](database-optimizer.md) | Senior DBA / Performance | Slow queries, indexes, EXPLAIN ANALYZE, replication tuning |
+| [performance-engineer](performance-engineer.md) | Senior Performance Engineer | Latency / throughput regressions, profiling, load testing |
+| [readme-generator](readme-generator.md) | Developer Experience Advocate | Maintainer-ready READMEs grounded in repo reality |
 | [security-auditor](security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
 | [test-engineer](test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
 

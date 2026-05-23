@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
-    "version": "0.10.2"
+    "version": "0.11.0"
   },
   "plugins": [
     {
       "name": "fullstack-dev-skills",
       "source": "./",
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
-      "version": "0.10.2",
+      "version": "0.11.0",
       "author": {
         "name": "antire",
         "email": "github@mindsandco"
@@ -72,6 +72,16 @@
         "./commands/ship.md",
         "./commands/spec.md",
         "./commands/test.md"
+      ],
+      "agents": [
+        "./agents/api-designer.md",
+        "./agents/backend-developer.md",
+        "./agents/code-reviewer.md",
+        "./agents/database-optimizer.md",
+        "./agents/performance-engineer.md",
+        "./agents/readme-generator.md",
+        "./agents/security-auditor.md",
+        "./agents/test-engineer.md"
       ]
     }
   ]

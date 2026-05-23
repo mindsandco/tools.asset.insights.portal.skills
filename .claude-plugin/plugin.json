@@ -1,6 +1,6 @@
 {
   "name": "fullstack-dev-skills",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
   "author": {
     "name": "antire"
@@ -50,7 +50,12 @@
     "./skills/shipping-and-launch"
   ],
   "agents": [
+    "./agents/api-designer.md",
+    "./agents/backend-developer.md",
     "./agents/code-reviewer.md",
+    "./agents/database-optimizer.md",
+    "./agents/performance-engineer.md",
+    "./agents/readme-generator.md",
     "./agents/security-auditor.md",
     "./agents/test-engineer.md"
   ],
