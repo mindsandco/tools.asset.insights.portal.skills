@@ -1,32 +1,33 @@
 {
   "name": "fullstack-dev-skills",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
   "author": {
-        "name": "antire"
-      },
+    "name": "antire"
+  },
   "license": "MIT",
-      "repository": "https://github.com/mindsandco/tools.asset.insights.portal.skills",
+  "repository": "https://github.com/mindsandco/tools.asset.insights.portal.skills",
   "keywords": [
-        "claude-skill",
-        "claude-code",
-        "fullstack",
-        "typescript",
-        "csharp",
-        "sql",
-        "react",
-        "dotnet",
-        "kubernetes",
-        "terraform",
-        "graphql",
-        "microservices",
-        "debugging",
-        "monitoring",
-        "architecture",
-        "security",
-        "code-review",
-        "testing",
-        "devops",
-        "project-management"
-    ]
+    "claude-skill",
+    "claude-code",
+    "fullstack",
+    "typescript",
+    "csharp",
+    "sql",
+    "react",
+    "dotnet",
+    "kubernetes",
+    "terraform",
+    "graphql",
+    "microservices",
+    "debugging",
+    "monitoring",
+    "architecture",
+    "security",
+    "code-review",
+    "testing",
+    "devops",
+    "project-management"
+  ],
+  "skills": "./skills/"
 }
