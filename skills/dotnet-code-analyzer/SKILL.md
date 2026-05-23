@@ -1,3 +1,8 @@
+---
+name: dotnet-code-analyzer
+description: Use when the user asks to analyze a .NET codebase — detecting unused NuGet packages, code-quality warnings (Roslyn analyzers), or known security vulnerabilities. Triggers on /analyze and on phrases like "analyze packages", "check code quality", "scan for CVEs", or "audit dependencies".
+---
+
 # Code Analyzer
 
 Run analysis tools on the codebase.

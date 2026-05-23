@@ -1,6 +1,6 @@
 {
   "name": "fullstack-dev-skills",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
   "author": {
     "name": "antire"
@@ -29,5 +29,9 @@
     "devops",
     "project-management"
   ],
-  "skills": "./skills/"
+  "skills": [
+    "./skills/dotnet-core-expert",
+    "./skills/testcontainers-dotnet",
+    "./skills/dotnet-code-analyzer"
+  ]
 }
