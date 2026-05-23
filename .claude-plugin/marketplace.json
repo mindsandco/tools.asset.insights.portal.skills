@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
-    "version": "0.8.3"
+    "version": "0.9.0"
   },
   "plugins": [
     {
       "name": "fullstack-dev-skills",
       "source": "./",
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
-      "version": "0.8.3",
+      "version": "0.9.0",
       "author": {
         "name": "antire",
         "email": "github@mindsandco"
@@ -53,7 +53,14 @@
         "./skills/postgres-pro",
         "./skills/sql-pro",
         "./skills/antd",
-        "./skills/react-vite-guide"
+        "./skills/react-vite-guide",
+        "./skills/code-simplification",
+        "./skills/context-engineering",
+        "./skills/debugging-and-error-recovery",
+        "./skills/incremental-implementation",
+        "./skills/planning-and-task-breakdown",
+        "./skills/spec-driven-development",
+        "./skills/test-driven-development"
       ]
     }
   ]
