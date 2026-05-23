@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
-    "version": "0.4.15"
+    "version": "0.5.0"
   },
   "plugins": [
     {
@@ -17,7 +17,7 @@
         "ref": "main"
       },
       "description": "Specialized skills for full-stack development: 2 language experts (TypeScript, C#), backend frameworks, frontend/mobile, plus infrastructure, DevOps, security, and testing skills.",
-      "version": "0.4.15",
+      "version": "0.5.0",
       "author": {
         "name": "antire",
         "email": "github@mindsandco"
