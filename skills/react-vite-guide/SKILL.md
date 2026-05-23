@@ -1,12 +1,12 @@
 ---
 name: react-vite-guide
-description:
-  React 19 + Vite SPA development guidelines. Composition patterns, performance
-  optimization, and web interface best practices. Use when writing, reviewing, or
-  refactoring React components in Vite-based projects. Covers compound components,
-  state management, bundle optimization, re-render prevention, accessibility, and
-  UI patterns. Triggers on React component work, performance issues, code review,
-  or new feature development.
+description: >
+  Use when writing, reviewing, or refactoring React 19 components in Vite-based
+  SPA projects. Covers composition patterns (compound components, slots),
+  performance optimization (re-render prevention, bundle splitting), state
+  management, accessibility, and modern hook patterns. Triggers on React
+  component work, performance issues, code review, or new frontend feature
+  development.
 license: MIT
 metadata:
   author: https://github.com/mindsandco
@@ -16,7 +16,7 @@ metadata:
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: antd
+  related-skills: antd, test-driven-development, debugging-and-error-recovery, code-simplification
 ---
 
 # React 19 + Vite Guide

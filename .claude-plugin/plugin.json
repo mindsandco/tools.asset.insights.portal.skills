@@ -1,6 +1,6 @@
 {
   "name": "fullstack-dev-skills",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
   "author": {
     "name": "antire"
@@ -45,7 +45,8 @@
     "./skills/incremental-implementation",
     "./skills/planning-and-task-breakdown",
     "./skills/spec-driven-development",
-    "./skills/test-driven-development"
+    "./skills/test-driven-development",
+    "./skills/git-workflow-and-versioning"
   ],
   "agents": [
     "./agents/code-reviewer.md",

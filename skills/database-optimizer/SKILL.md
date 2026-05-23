@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: optimization
   output-format: analysis-and-code
-  related-skills: devops-engineer, postgres-pro, graphql-architect
+  related-skills: postgres-pro, sql-pro, dotnet-core-expert
 ---
 
 # Database Optimizer

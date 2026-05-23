@@ -1,6 +1,16 @@
 ---
 name: git-workflow-and-versioning
 description: Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, or when you need to organize work across multiple parallel streams.
+license: MIT
+metadata:
+  author: https://github.com/mindsandco
+  version: "1.0.0"
+  domain: process
+  triggers: git, commit, branch, merge, rebase, conflict, version control, history, PR, pull request
+  role: specialist
+  scope: workflow
+  output-format: code
+  related-skills: incremental-implementation, planning-and-task-breakdown, code-reviewer
 ---
 
 # Git Workflow and Versioning

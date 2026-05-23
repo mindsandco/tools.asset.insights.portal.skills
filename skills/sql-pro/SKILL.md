@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: devops-engineer
+  related-skills: postgres-pro, database-optimizer, dotnet-core-expert
 ---
 
 # SQL Pro
