@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: analysis
   output-format: report
-  related-skills: dotnet-core-expert, testcontainers-dotnet
+  related-skills: dotnet-core-expert, testcontainers-dotnet, dotnet-csharp-async-patterns, dotnet-csharp-dependency-injection
 ---
 
 # Code Analyzer

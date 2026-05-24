@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: dotnet-core-expert, dotnet-code-analyzer
+  related-skills: dotnet-core-expert, dotnet-code-analyzer, dotnet-http-client, dotnet-csharp-dependency-injection
 ---
 
 # .NET Testcontainers + xUnit v3 Testing

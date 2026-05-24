@@ -220,6 +220,13 @@ Always prioritize reliability, security, and performance in all backend implemen
 ## Composition
 
 - **Invoke directly when:** the user is implementing a backend service or feature — controllers, GraphQL resolvers, repositories, workers, integrations.
-- **Skills to invoke:** anchor in `fullstack-dev-skills:dotnet-core-expert` for the canonical .NET 10 stack (HotChocolate GraphQL, Asp.Versioning controllers, EF Core + Npgsql, NodaTime, Dapr, DbUp SQL migrations, FusionCache, BackgroundService workers). Use `fullstack-dev-skills:test-driven-development` to drive each behaviour and `fullstack-dev-skills:testcontainers-dotnet` for the integration-test recipe (xUnit v3 + NSubstitute, real PostgreSQL via Testcontainers, coverlet). Use `fullstack-dev-skills:incremental-implementation` to break work into vertical slices. Run `fullstack-dev-skills:dotnet-code-analyzer` before declaring a slice done.
+- **Skills to invoke:** anchor in `fullstack-dev-skills:dotnet-core-expert` for the canonical .NET 10 stack (HotChocolate GraphQL, Asp.Versioning controllers, EF Core + Npgsql, NodaTime, Dapr, DbUp SQL migrations, FusionCache, BackgroundService workers). Pull in the focused sub-skills as needed:
+  - `fullstack-dev-skills:dotnet-csharp-async-patterns` — async/await, `CancellationToken`, `IAsyncEnumerable`, `ConfigureAwait`.
+  - `fullstack-dev-skills:dotnet-csharp-dependency-injection` — service lifetimes, keyed services, decoration, hosted services.
+  - `fullstack-dev-skills:dotnet-csharp-configuration` — Options pattern, `IOptions*`, UserSecrets, feature flags.
+  - `fullstack-dev-skills:dotnet-http-client` — `IHttpClientFactory`, typed/named clients, `DelegatingHandler`.
+  - `fullstack-dev-skills:dotnet-resilience` — Polly v8 + `Microsoft.Extensions.Http.Resilience`.
+
+  Use `fullstack-dev-skills:test-driven-development` to drive each behaviour and `fullstack-dev-skills:testcontainers-dotnet` for the integration-test recipe (xUnit v3 + NSubstitute, real PostgreSQL via Testcontainers, coverlet). Use `fullstack-dev-skills:incremental-implementation` to break work into vertical slices. Run `fullstack-dev-skills:dotnet-code-analyzer` before declaring a slice done.
 - **Pair with:** `api-designer` (contract first), `database-optimizer` (when the slice touches data access), `test-engineer` (coverage gaps), `security-auditor` (auth surfaces, secrets handling).
 - **Do not invoke from another persona.** Surface follow-up work as recommendations.
