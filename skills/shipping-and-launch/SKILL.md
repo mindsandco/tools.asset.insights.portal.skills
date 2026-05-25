@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: deployment
   output-format: report
-  related-skills: incremental-implementation, debugging-and-error-recovery, code-reviewer, git-workflow-and-versioning
+  related-skills: incremental-implementation, debugging-and-error-recovery, code-reviewer, git-workflow-and-versioning, devops-engineer
 ---
 
 # Shipping and Launch
@@ -292,7 +292,7 @@ The pre-launch checklist is stack-agnostic. Here are the concrete commands, sign
 - `dotnet list package --vulnerable --include-transitive` — fail the launch on any **high** / **critical** CVE. NuGet audit is enabled in `Directory.Build.props` via `<NuGetAudit>true</NuGetAudit>` so the build also flags vulnerable packages.
 - DbUp migrations: confirm the latest numbered `.sql` in the `Db` project is idempotent and has been smoke-tested on a copy of production data. There is no rollback button — write a follow-up SQL migration if you need to undo.
 - Container image: rebuild from `mcr.microsoft.com/dotnet/aspnet:10.0` and push to ACR (`aipsim.azurecr.io` or equivalent). Verify the image runs locally before deploying.
-- Health checks: `/health/live` and `/health/ready` return 200 (Dapr sidecar + Npgsql probes).
+- Health checks: `/healthz` and `/readyz` return 200 (Dapr sidecar + Npgsql probes).
 - Configuration: confirm Dapr secret store keys exist in the target environment; UserSecrets do not deploy.
 
 **Rollback:**
