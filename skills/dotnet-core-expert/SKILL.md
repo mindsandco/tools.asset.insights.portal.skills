@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: implementation
   output-format: code
-  related-skills: testcontainers-dotnet, dotnet-code-analyzer, dotnet-csharp-async-patterns, dotnet-csharp-configuration, dotnet-csharp-dependency-injection, dotnet-http-client, dotnet-resilience
+  related-skills: testcontainers-dotnet, dotnet-code-analyzer, dotnet-csharp-async-patterns, dotnet-csharp-configuration, dotnet-csharp-dependency-injection, dotnet-http-client, dotnet-resilience, jetbrains-lint-pro
 ---
 
 # .NET Core Expert

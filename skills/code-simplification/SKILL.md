@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: refactoring
   output-format: code
-  related-skills: code-reviewer, dotnet-core-expert, react-vite-guide
+  related-skills: code-reviewer, dotnet-core-expert, react-vite-guide, jetbrains-lint-pro, dotnet-code-analyzer
 ---
 
 # Code Simplification

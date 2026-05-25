@@ -1,0 +1,303 @@
+---
+name: jetbrains-lint-pro
+description: Use when cleaning up or inspecting .NET / C# code using JetBrains ReSharper Global Tools (`jb`) against the team's existing `.DotSettings` profile. Apply the team's ReSharper cleanup rules and formatting to changed files only — not the whole solution — whenever a `*.sln.DotSettings` or `*.slnx.DotSettings` file is present in the repo. Also runs `jb inspectcode` for severity-gated lint reports.
+license: MIT
+metadata:
+  author: https://github.com/mindsandco
+  version: "1.0.0"
+  domain: tooling
+  triggers: ReSharper, JetBrains, jb, cleanupcode, inspectcode, DotSettings, code cleanup, ReSharper format, R# rules, JetBrains.ReSharper.GlobalTools
+  role: specialist
+  scope: cleanup
+  output-format: code
+  related-skills: dotnet-code-analyzer, code-simplification, code-reviewer, git-workflow-and-versioning, dotnet-core-expert
+---
+
+# JetBrains Lint Pro
+
+Run JetBrains ReSharper Global Tools (`jb`) against a .NET solution to apply the team's `.DotSettings` cleanup and inspection rules to **changed files only**. The `.DotSettings` file is the source of truth — `jb` picks it up automatically when it sits next to the `.sln` / `.slnx`.
+
+## When to use
+
+- The repo contains a `*.sln.DotSettings` or `*.slnx.DotSettings` (and the team treats it as authoritative).
+- You just finished an implementation slice and want to apply ReSharper formatting, fix-on-save rules, code-style preferences, and arrangement to **your changes only** before opening a PR.
+- You want a CI-style severity gate (`jb inspectcode --severity=ERROR`) before pushing.
+
+**When NOT to use:**
+
+- No `.DotSettings` file in the repo — there's nothing for `jb` to pick up, and the default ReSharper profile will not match the team's intent. Use Roslyn analyzers (see `dotnet-code-analyzer`) instead.
+- You want to run cleanup on every file in the solution — `jb cleanupcode` without `--include` will reformat the world; that's a separate, deliberate operation, not part of this skill.
+- The repo only has `*.DotSettings.user` (per-user settings, not committed). The team profile lives in the non-`.user` file.
+
+## Prerequisites
+
+- .NET SDK matching `global.json` (the same SDK that builds the solution).
+- `JetBrains.ReSharper.GlobalTools` installed (see "Install" below).
+- Git working tree on a branch with changes you intend to clean up.
+- A solution file (`.sln` or `.slnx`) at the same level as the `.DotSettings`.
+
+## Install (`JetBrains.ReSharper.GlobalTools`)
+
+Prefer a **repo-pinned tool manifest** so every developer and CI runner uses the same version.
+
+```sh
+# One-time per repo
+dotnet new tool-manifest                                            # creates .config/dotnet-tools.json
+dotnet tool install JetBrains.ReSharper.GlobalTools
+
+# Every developer / CI runner
+dotnet tool restore
+```
+
+Verify:
+
+```sh
+dotnet jb --version
+```
+
+If you must install globally instead:
+
+```sh
+dotnet tool install -g JetBrains.ReSharper.GlobalTools
+jb --version
+```
+
+Use `dotnet jb …` for repo-pinned installs and `jb …` for the global install. The rest of this skill writes `jb` — substitute `dotnet jb` when running from the tool manifest.
+
+## How `jb` finds the `.DotSettings`
+
+`jb cleanupcode` and `jb inspectcode` automatically read settings layers next to the solution:
+
+| File next to solution | Layer | Committed? |
+|---|---|---|
+| `MyApp.slnx.DotSettings` | Team (shared) | Yes |
+| `MyApp.slnx.DotSettings.user` | Per-user | No (`.gitignore`) |
+| `MyApp.sln.DotSettings` | Team (legacy `.sln`) | Yes |
+
+You **do not** pass `--settings` for these — `jb` discovers them. If the file isn't at the same level as the `.sln` / `.slnx`, the tool will ignore it silently. Verify with `jb cleanupcode --dump-settings` and grep for known keys (e.g. `ArrangeModifiersOrder`).
+
+## Core workflow
+
+```
+1. Detect the .DotSettings file (and refuse to run if absent).
+2. Identify changed C# files vs. the base branch.
+3. Run `jb cleanupcode` with --include limited to those files.
+4. Show the diff so the human sees exactly what changed.
+5. (Optional) Run `jb inspectcode --severity=ERROR` as a gate.
+6. Commit cleanup separately from feature changes.
+```
+
+### Step 1 — Detect
+
+```sh
+DOTSETTINGS=$(find . -maxdepth 4 \( -name '*.slnx.DotSettings' -o -name '*.sln.DotSettings' \) ! -name '*.user' | head -1)
+[ -n "$DOTSETTINGS" ] || { echo "No team DotSettings file — aborting."; exit 1; }
+echo "Using settings: $DOTSETTINGS"
+```
+
+### Step 2 — Identify changed files
+
+Pick the base ref that matches your branching model. Examples:
+
+```sh
+# Unmerged changes vs. main (most common in feature branches)
+BASE=origin/main
+CHANGED=$(git diff --name-only --diff-filter=AM "$BASE...HEAD" -- '*.cs' '*.cshtml' '*.razor')
+
+# Local working-tree changes (before commit)
+CHANGED=$(git diff --name-only --diff-filter=AM -- '*.cs' '*.cshtml' '*.razor')
+
+# Last commit only
+CHANGED=$(git diff --name-only --diff-filter=AM HEAD~1 -- '*.cs')
+```
+
+Skip generated files explicitly — even if `<auto-generated>` headers usually exclude them, an audit pass is cheap:
+
+```sh
+CHANGED=$(printf '%s\n' "$CHANGED" | grep -vE '(\.designer\.cs$|/Migrations/|/obj/|/bin/)')
+```
+
+`jb` expects the include list as a semicolon-separated string:
+
+```sh
+INCLUDE=$(printf '%s\n' "$CHANGED" | paste -sd ';' -)
+```
+
+### Step 3 — Cleanup
+
+```sh
+SOLUTION=$(find . -maxdepth 4 \( -name '*.slnx' -o -name '*.sln' \) | head -1)
+
+jb cleanupcode \
+  --include="$INCLUDE" \
+  --profile="Built-in: Full Cleanup" \
+  --no-build \
+  "$SOLUTION"
+```
+
+Key flags:
+
+- `--include=<files>` — semicolon-separated, glob-supporting list. **Required for "changed files only".**
+- `--exclude=<files>` — same syntax. Use to skip generated files if `--include` is too broad.
+- `--profile=<name>` — named profile from the `.DotSettings`. Common values: `"Built-in: Reformat Code"`, `"Built-in: Reformat & Apply Syntax Style"`, `"Built-in: Full Cleanup"`, or a team-defined name. Omit to use the solution's default profile.
+- `--no-build` — skip the implicit MSBuild restore + build. Faster when you've already built locally, but **omit it in CI** so analyzer references resolve correctly.
+- `--settings=<file>` — only needed if the `.DotSettings` is not co-located with the solution.
+
+### Step 4 — Review the diff
+
+```sh
+git --no-pager diff --stat
+git --no-pager diff
+```
+
+Cleanup edits should be **mechanical** (whitespace, ordering, `var` ↔ explicit types, brace style). If you see semantic edits (changed logic, removed code) something is wrong — revert (`git restore .`) and investigate the `.DotSettings` profile.
+
+### Step 5 — Inspection gate (optional but recommended pre-PR)
+
+```sh
+jb inspectcode \
+  --include="$INCLUDE" \
+  --severity=ERROR \
+  --output=resharper-report.xml \
+  --format=Xml \
+  "$SOLUTION"
+```
+
+`--severity=ERROR` makes the tool exit non-zero on any issue at or above ERROR severity — perfect for CI. Many `.DotSettings` profiles mark arrangement / naming rules as ERROR, so this catches drift the cleanup pass didn't auto-fix.
+
+For local triage prefer `--format=Text` (or `Html`) to read inline.
+
+### Step 6 — Commit cleanup separately
+
+Keep cleanup commits orthogonal to feature commits. Reviewers can skim "ReSharper cleanup (changed files)" without re-reading every formatting edit:
+
+```sh
+git commit -m "ReSharper cleanup against team DotSettings (changed files only)"
+```
+
+## Recipes
+
+### Pre-PR cleanup script (`scripts/lint-pro.sh`)
+
+```sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+BASE="${1:-origin/main}"
+
+DOTSETTINGS=$(find . -maxdepth 4 \( -name '*.slnx.DotSettings' -o -name '*.sln.DotSettings' \) ! -name '*.user' | head -1)
+[ -n "$DOTSETTINGS" ] || { echo "::error::No team DotSettings file."; exit 1; }
+
+SOLUTION=$(find . -maxdepth 4 \( -name '*.slnx' -o -name '*.sln' \) | head -1)
+[ -n "$SOLUTION" ] || { echo "::error::No solution file."; exit 1; }
+
+CHANGED=$(git diff --name-only --diff-filter=AM "$BASE...HEAD" -- '*.cs' '*.cshtml' '*.razor' \
+  | grep -vE '(\.designer\.cs$|/Migrations/|/obj/|/bin/)' || true)
+
+if [ -z "$CHANGED" ]; then
+  echo "No changed C# files vs $BASE — nothing to do."
+  exit 0
+fi
+
+INCLUDE=$(printf '%s\n' "$CHANGED" | paste -sd ';' -)
+echo "Cleaning up:"
+printf '  %s\n' "$CHANGED"
+
+dotnet jb cleanupcode --include="$INCLUDE" --profile="Built-in: Full Cleanup" "$SOLUTION"
+
+if ! git diff --quiet; then
+  echo "Changes applied. Review with:  git --no-pager diff"
+else
+  echo "No edits applied — already clean."
+fi
+```
+
+### CI gate (GitHub Actions)
+
+```yaml
+- name: Restore .NET tools
+  run: dotnet tool restore
+
+- name: ReSharper inspect (changed files only)
+  run: |
+    git fetch origin "${{ github.base_ref }}" --depth=1
+    CHANGED=$(git diff --name-only --diff-filter=AM "origin/${{ github.base_ref }}...HEAD" -- '*.cs' \
+      | grep -vE '(\.designer\.cs$|/Migrations/)' || true)
+    [ -z "$CHANGED" ] && { echo "No C# changes."; exit 0; }
+    INCLUDE=$(printf '%s\n' "$CHANGED" | paste -sd ';' -)
+    SOLUTION=$(find . -maxdepth 4 \( -name '*.slnx' -o -name '*.sln' \) | head -1)
+    dotnet jb inspectcode \
+      --include="$INCLUDE" \
+      --severity=ERROR \
+      --output=resharper-report.xml \
+      --format=Xml \
+      "$SOLUTION"
+
+- name: Upload report
+  if: always()
+  uses: actions/upload-artifact@v4
+  with:
+    name: resharper-report
+    path: resharper-report.xml
+```
+
+## Profiles (what `--profile` actually does)
+
+A `.DotSettings` defines one or more named cleanup profiles under
+`<s:String x:Key="/Default/CodeCleanup/Profiles/=...">`. Common profiles:
+
+| Profile | Effect |
+|---|---|
+| `Built-in: Reformat Code` | Whitespace, indentation, line breaks only. Safest. |
+| `Built-in: Reformat & Apply Syntax Style` | Adds modifier order, `var` style, brace style. |
+| `Built-in: Full Cleanup` | Everything above + arrangement, sorting, unused-using removal. |
+| `<Team-defined name>` | Whatever the `.DotSettings` declares. Inspect the XML to confirm scope before running. |
+
+Start with `Reformat Code` on an unfamiliar repo, escalate to `Full Cleanup` once you've reviewed a sample diff.
+
+## Common pitfalls
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| `jb cleanupcode` reformats the entire solution | `--include` is missing | Always pass `--include=<changed-files>`. |
+| Cleanup edits are huge and reviewers reject the PR | Running `Full Cleanup` on a long-untouched file pulls in pre-existing drift | Limit `--include` to lines touched in this branch, or split the cleanup commit by file batch. |
+| `jb` complains it can't find the solution | Running from outside the solution directory | `cd` to the solution folder, or pass an absolute path as the last argument. |
+| Settings appear to be ignored | The `.DotSettings` lives in a parent or sibling directory | Move it next to the `.sln` / `.slnx`, or pass `--settings=/abs/path/MyApp.slnx.DotSettings`. |
+| `--no-build` produces missing-reference errors | Project references unresolved; ReSharper analyzer needs a successful build | Run `dotnet build` first or drop `--no-build`. |
+| CI report is empty but tool exited 0 | All issues below the `--severity` threshold | Lower the threshold (`WARNING`) for a one-time audit; keep ERROR for the gate. |
+| Tool runs slowly the first time | `jb` warms a Roslyn workspace cache per branch | Cache `~/.local/share/JetBrains/Transient/` (Linux) or `%LOCALAPPDATA%\JetBrains\Transient\` (Windows) in CI. |
+
+## Stack-specific notes (.NET Core + React)
+
+This skill is **.NET-only**. JetBrains Global Tools has no equivalent for React/Vite work.
+
+### .NET Core (where this applies)
+
+- **Trigger:** a `*.slnx.DotSettings` or `*.sln.DotSettings` exists at the solution root. Confirm with `find . -maxdepth 4 -name '*.DotSettings' ! -name '*.user'`.
+- **Build first:** `dotnet build` must succeed before running `jb` (analyzer rules expect a compiled workspace).
+- **Pair with:** `fullstack-dev-skills:dotnet-code-analyzer` for the Roslyn / Sonar / SecurityCodeScan side — `jb` and analyzers cover overlapping but distinct rule sets, and both are typically enforced in CI.
+- **Sequence:** `dotnet build` → `jb cleanupcode` (auto-fix what's auto-fixable) → `dotnet build` again (analyzers + `TreatWarningsAsErrors=true`) → `jb inspectcode --severity=ERROR` (CI gate) → commit.
+
+Pair with: `dotnet-code-analyzer`, `dotnet-core-expert`, `code-simplification`, `git-workflow-and-versioning`.
+
+### React + Vite (out of scope)
+
+Use the project's own tooling: `pnpm lint` (ESLint), `pnpm format` (Prettier or Biome), and `pnpm tsc --noEmit` for type checks. See `fullstack-dev-skills:react-vite-guide`.
+
+## Verification
+
+After running:
+
+- [ ] `git --no-pager diff` shows only mechanical edits (whitespace, ordering, modifier order). No semantic changes.
+- [ ] `dotnet build` still succeeds with `TreatWarningsAsErrors=true`.
+- [ ] `dotnet test` still passes.
+- [ ] `jb inspectcode --severity=ERROR --include="$INCLUDE" "$SOLUTION"` exits 0 (no remaining ERROR-severity issues in changed files).
+- [ ] Cleanup is committed in a separate, narrowly-scoped commit.
+
+## Red flags
+
+- Running `jb cleanupcode` without `--include` (rewrites the whole solution).
+- Skipping `dotnet build` before running `jb` (analyzer references unresolved, results are unreliable).
+- Cleanup commit mixed with feature commit (reviewer can't separate signal from noise).
+- Suppressing inspection severity in `.DotSettings.user` instead of fixing the code or amending the team profile in `.DotSettings`.
+- Running cleanup on files you haven't touched, just because they're "in the same folder" — that pulls in drift unrelated to the current PR.
