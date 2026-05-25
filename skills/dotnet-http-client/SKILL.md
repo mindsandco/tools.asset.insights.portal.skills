@@ -550,7 +550,7 @@ Test the full HTTP client pipeline including DI registration:
 | Multiple APIs  | One name per API              | One class per API                   |
 | Recommendation | Ad-hoc or simple calls        | Primary pattern for API consumption |
 
-**Default to typed clients.** Use named clients only for simple, one-off HTTP calls where a full typed client class adds unnecessary ceremony.
+**Default to named clients.** Use typed clients only for advanced use.
 
 ---
 
