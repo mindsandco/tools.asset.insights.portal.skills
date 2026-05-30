@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: workflow
   output-format: code
-  related-skills: incremental-implementation, planning-and-task-breakdown, code-reviewer
+  related-skills: incremental-implementation, planning-and-task-breakdown, code-reviewer, pr-description
 ---
 
 # Git Workflow and Versioning

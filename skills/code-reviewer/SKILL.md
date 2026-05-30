@@ -11,7 +11,7 @@ metadata:
   role: specialist
   scope: review
   output-format: report
-  related-skills: code-simplification, dotnet-code-analyzer, test-driven-development, git-workflow-and-versioning
+  related-skills: code-simplification, dotnet-code-analyzer, test-driven-development, git-workflow-and-versioning, pr-description
 ---
 
 # Code Reviewer

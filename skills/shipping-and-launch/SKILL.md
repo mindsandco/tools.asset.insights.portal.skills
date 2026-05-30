@@ -10,7 +10,7 @@ metadata:
   role: specialist
   scope: deployment
   output-format: report
-  related-skills: incremental-implementation, debugging-and-error-recovery, code-reviewer, git-workflow-and-versioning, devops-engineer
+  related-skills: incremental-implementation, debugging-and-error-recovery, code-reviewer, git-workflow-and-versioning, devops-engineer, pr-description
 ---
 
 # Shipping and Launch

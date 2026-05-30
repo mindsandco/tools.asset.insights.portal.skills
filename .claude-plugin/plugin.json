@@ -1,6 +1,6 @@
 {
   "name": "fullstack-dev-skills",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Comprehensive skill pack for full-stack developers covering frameworks, workflows, and security",
   "author": {
     "name": "antire"
@@ -47,6 +47,7 @@
     "./skills/spec-driven-development",
     "./skills/test-driven-development",
     "./skills/git-workflow-and-versioning",
+    "./skills/pr-description",
     "./skills/shipping-and-launch",
     "./skills/dotnet-csharp-async-patterns",
     "./skills/dotnet-csharp-configuration",
